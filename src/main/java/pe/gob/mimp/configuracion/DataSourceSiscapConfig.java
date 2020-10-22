@@ -83,6 +83,7 @@ public class DataSourceSiscapConfig {
         return basicDataSource;
     }
 
+    @Primary
     @Bean(name = "siscapEntityManagerFactory")
     public LocalContainerEntityManagerFactoryBean productEntityManager(EntityManagerFactoryBuilder builder,
             @Qualifier("siscapDatasource") DataSource dataSource) {
