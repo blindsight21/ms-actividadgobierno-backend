@@ -91,12 +91,13 @@ public class DataSourceSiscapConfig {
 //		properties.put("hibernate.hbm2ddl.auto", "update");
 //		properties.put("hibernate.dialect", "org.hibernate.dialect.MYSQL5Dialect");
         return builder.dataSource(dataSource).packages("pe.gob.mimp.siscap.model").persistenceUnit("siscap")
-                .properties(initJpaProperties()).jta(true).build();
+                .properties(initJpaProperties()).build();
 
     }
 
     @Bean(name = "siscapTransactionManager")
-    @ConditionalOnMissingBean(PlatformTransactionManager.class)
+    //@ConditionalOnMissingBean(PlatformTransactionManager.class)
+    @Primary
     public PlatformTransactionManager productTransactionManager(
             @Qualifier("siscapEntityManagerFactory") EntityManagerFactory siscapEntityManagerFactory) {
 
