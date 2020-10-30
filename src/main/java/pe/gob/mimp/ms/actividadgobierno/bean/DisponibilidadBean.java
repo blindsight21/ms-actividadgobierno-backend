@@ -25,7 +25,7 @@ public class DisponibilidadBean implements Serializable {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigInteger nidFuncionalidad;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private BigDecimal flgDisponibilidad;
+    private BigInteger flgDisponibilidad;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private BigInteger flgActivo;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -54,11 +54,11 @@ public class DisponibilidadBean implements Serializable {
         this.nidFuncionalidad = nidFuncionalidad;
     }
 
-    public BigDecimal getFlgDisponibilidad() {
+    public BigInteger getFlgDisponibilidad() {
         return flgDisponibilidad;
     }
 
-    public void setFlgDisponibilidad(BigDecimal flgDisponibilidad) {
+    public void setFlgDisponibilidad(BigInteger flgDisponibilidad) {
         this.flgDisponibilidad = flgDisponibilidad;
     }
 
