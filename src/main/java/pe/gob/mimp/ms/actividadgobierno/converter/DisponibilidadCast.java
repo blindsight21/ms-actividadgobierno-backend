@@ -23,8 +23,10 @@ public class DisponibilidadCast {
         DisponibilidadBean disponibilidadBean = new DisponibilidadBean();
 
         disponibilidadBean.setNidDisponibilidad(disponibilidad.getNidDisponibilidad());
+        disponibilidadBean.setFecDisponible(disponibilidad.getFecDisponible());
+        disponibilidadBean.setFecNoDisponible(disponibilidad.getFecNoDisponible());
+        disponibilidadBean.setNumTiempoMedio(disponibilidad.getNumTiempoMedio());
         disponibilidadBean.setNidFuncionalidad(disponibilidad.getNidFuncionalidad());
-        disponibilidadBean.setFlgDisponibilidad(disponibilidad.getFlgDisponibilidad());
         disponibilidadBean.setFlgActivo(disponibilidad.getFlgActivo());
         disponibilidadBean.setNidUsuario(disponibilidad.getNidUsuario());
         disponibilidadBean.setTxtPc(disponibilidad.getTxtPc());
@@ -43,8 +45,10 @@ public class DisponibilidadCast {
         Disponibilidad disponibilidad = new Disponibilidad();
 
         disponibilidad.setNidDisponibilidad(disponibilidadBean.getNidDisponibilidad());
+        disponibilidad.setFecDisponible(disponibilidadBean.getFecDisponible());
+        disponibilidad.setFecNoDisponible(disponibilidadBean.getFecNoDisponible());
+        disponibilidad.setNumTiempoMedio(disponibilidadBean.getNumTiempoMedio());
         disponibilidad.setNidFuncionalidad(disponibilidadBean.getNidFuncionalidad());
-        disponibilidad.setFlgDisponibilidad(disponibilidadBean.getFlgDisponibilidad());
         disponibilidad.setFlgActivo(disponibilidadBean.getFlgActivo());
         disponibilidad.setNidUsuario(disponibilidadBean.getNidUsuario());
         disponibilidad.setTxtPc(disponibilidadBean.getTxtPc());
