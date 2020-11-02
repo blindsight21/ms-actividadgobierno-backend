@@ -7,6 +7,8 @@ package pe.gob.mimp.ms.actividadgobierno.service.impl;
 
 import com.google.gson.Gson;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +28,7 @@ import pe.gob.mimp.ms.actividadgobierno.converter.TipoModalidadCast;
 import pe.gob.mimp.ms.actividadgobierno.converter.TipoObjetivoCast;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
 import pe.gob.mimp.ms.actividadgobierno.service.ActividadGobService;
+import pe.gob.mimp.ms.actividadgobierno.util.FormatoFechaConstante;
 import pe.gob.mimp.siscap.model.Gobierno;
 
 /**
@@ -144,12 +147,24 @@ public class ActividadGobServiceImpl implements ActividadGobService {
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
         }
-        
+
         findByParamBean.getParameters().forEach((k, v) -> {
             if ("nidGobierno".equals(k)) {
                 String jsonString = new Gson().toJson(v);
                 Gobierno gobierno = new Gson().fromJson(jsonString, Gobierno.class);
                 findByParamBean.getParameters().put(k, gobierno);
+            }
+
+            if ("fecInicio".equals(k)) {
+                SimpleDateFormat formato = new SimpleDateFormat(FormatoFechaConstante.yyyyMMddTHHmmssSSSXXX);
+
+                Date fecInicioCasteadoToDate = null;
+                try {
+                    fecInicioCasteadoToDate = formato.parse((String) v);
+                } catch (Exception e) {
+
+                }
+                findByParamBean.getParameters().put(k, fecInicioCasteadoToDate);
             }
         });
 
@@ -158,47 +173,7 @@ public class ActividadGobServiceImpl implements ActividadGobService {
         if (!Util.esListaVacia(actividadGobiernoList)) {
 
             return actividadGobiernoList.stream().map(actividadGobierno -> {
-                ActividadGobBean actividadGobiernoBean = new ActividadGobBean();
-
-                actividadGobiernoBean.setNidActividadGob(actividadGobierno.getNidActividadGob());
-                actividadGobiernoBean.setTxtObjetivo(actividadGobierno.getTxtObjetivo());
-                actividadGobiernoBean.setTxtTema(actividadGobierno.getTxtTema());
-                actividadGobiernoBean.setFecInicio(actividadGobierno.getFecInicio());
-                actividadGobiernoBean.setFecFin(actividadGobierno.getFecFin());
-                actividadGobiernoBean.setFecCreacion(actividadGobierno.getFecCreacion());
-                actividadGobiernoBean.setNumAnio(actividadGobierno.getNumAnio());
-                actividadGobiernoBean.setNumTrimestre(actividadGobierno.getNumTrimestre());
-                actividadGobiernoBean.setTxtObservacionEliminado(actividadGobierno.getTxtObservacionEliminado());
-
-                actividadGobiernoBean.setNidUsuario(actividadGobierno.getNidUsuario());
-                actividadGobiernoBean.setTxtPc(actividadGobierno.getTxtPc());
-                actividadGobiernoBean.setTxtIp(actividadGobierno.getTxtIp());
-                actividadGobiernoBean.setFecEdicion(actividadGobierno.getFecEdicion());
-                actividadGobiernoBean.setFlgActivo(actividadGobierno.getFlgActivo());
-
-                actividadGobiernoBean.setNidArea(actividadGobierno.getNidArea());
-                actividadGobiernoBean.setNidDepartamento(actividadGobierno.getNidDepartamento());
-                actividadGobiernoBean.setTxtResponsableApepat(actividadGobierno.getTxtResponsableApepat());
-                actividadGobiernoBean.setTxtResponsableApemat(actividadGobierno.getTxtResponsableApemat());
-                actividadGobiernoBean.setTxtResponsableNombre(actividadGobierno.getTxtResponsableNombre());
-                actividadGobiernoBean.setTxtResponsableTelef(actividadGobierno.getTxtResponsableTelef());
-                actividadGobiernoBean.setTxtResponsableCorreo(actividadGobierno.getTxtResponsableCorreo());
-                actividadGobiernoBean.setNumContadorMasculino(actividadGobierno.getNumContadorMasculino());
-                actividadGobiernoBean.setNumContadorFemenino(actividadGobierno.getNumContadorFemenino());
-                actividadGobiernoBean.setNumContadorTotal(actividadGobierno.getNumContadorTotal());
-                actividadGobiernoBean.setTxtJustificacionReprogramado(actividadGobierno.getTxtJustificacionReprogramado());
-                actividadGobiernoBean.setTxtJustificacionAnulado(actividadGobierno.getTxtJustificacionAnulado());
-
-                actividadGobiernoBean.setTipoObjetivoBean(TipoObjetivoCast.castTipoObjetivoToTipoObjetivoBean(actividadGobierno.getNidTipoObjetivo()));
-                actividadGobiernoBean.setTipoModalidadBean(TipoModalidadCast.castTipoModalidadToTipoModalidadBean(actividadGobierno.getNidTipoModalidad()));
-                actividadGobiernoBean.setModalidadActividadBean(ModalidadActividadCast.castModalidadActividadToModalidadActividadBean(actividadGobierno.getNidModalidadActividad()));
-                actividadGobiernoBean.setGobiernoBean(GobiernoCast.castGobiernoToGobiernoBean(actividadGobierno.getNidGobierno()));
-                actividadGobiernoBean.setFuncionTransferidaBean(FuncionTransferidaCast.castFuncionTransferidaToFuncionTransferidaBean(actividadGobierno.getNidFuncionTransferida()));
-
-                actividadGobiernoBean.setNidTipoFuncion(actividadGobierno.getNidTipoFuncion());
-                actividadGobiernoBean.setNidTipoGobierno(actividadGobierno.getNidTipoGobierno());
-                actividadGobiernoBean.setNidEstadoActividad(actividadGobierno.getNidEstadoActividad());
-
+                ActividadGobBean actividadGobiernoBean = ActividadGobCast.castActividadGobToActividadGobBean(actividadGobierno);
                 return actividadGobiernoBean;
             }).collect(Collectors.toList());
         }
@@ -215,7 +190,7 @@ public class ActividadGobServiceImpl implements ActividadGobService {
         Integer count = actividadGobiernoRepository.getRecordCount(findByParamBean.getParameters());
         return count;
     }
-    
+
     @Override
     public ActividadGobBean find(BigDecimal id) throws Exception {
 
