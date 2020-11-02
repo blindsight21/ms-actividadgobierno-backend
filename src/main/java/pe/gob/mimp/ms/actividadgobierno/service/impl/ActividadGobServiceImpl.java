@@ -5,6 +5,7 @@
  */
 package pe.gob.mimp.ms.actividadgobierno.service.impl;
 
+import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ import pe.gob.mimp.ms.actividadgobierno.converter.TipoModalidadCast;
 import pe.gob.mimp.ms.actividadgobierno.converter.TipoObjetivoCast;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
 import pe.gob.mimp.ms.actividadgobierno.service.ActividadGobService;
+import pe.gob.mimp.siscap.model.Gobierno;
 
 /**
  *
@@ -142,6 +144,14 @@ public class ActividadGobServiceImpl implements ActividadGobService {
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
         }
+        
+        findByParamBean.getParameters().forEach((k, v) -> {
+            if ("nidGobierno".equals(k)) {
+                String jsonString = new Gson().toJson(v);
+                Gobierno gobierno = new Gson().fromJson(jsonString, Gobierno.class);
+                findByParamBean.getParameters().put(k, gobierno);
+            }
+        });
 
         List<ActividadGob> actividadGobiernoList = actividadGobiernoRepository.findByParams(findByParamBean.getParameters(), findByParamBean.getOrderBy());
 
