@@ -30,8 +30,8 @@ public class ActividadGRController {
     @Autowired
     private ActividadGRService actividadGRAService;
 
-    @PostMapping(value = "/crearActividadGRA", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseData<?>> crearActividadGRA(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
+    @PostMapping(value = "/crearActividadGR", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseData<?>> crearActividadGR(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
 
         ActividadGobResultadoBean actividadGobResultadoBeanNuevo = actividadGRAService.crearActividadGRA(actividadGRABean);
 
@@ -44,8 +44,8 @@ public class ActividadGRController {
 
     }
 
-    @PostMapping(value = "/editarActividadGRA", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseData<?>> editarActividadGRA(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
+    @PostMapping(value = "/editarActividadGR", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseData<?>> editarActividadGR(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
 
         ActividadGobResultadoBean actividadGobResultadoBeanEditado = actividadGRAService.editarActividadGRA(actividadGRABean);
 
@@ -71,8 +71,8 @@ public class ActividadGRController {
 //        return ResponseEntity.ok(response);
 //
 //    }
-    @PostMapping(value = "/loadActividadGRAList", consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<ResponseData<?>> loadActividadGRAList(@RequestBody FindByParamBean findByParamBean) throws Exception {
+    @PostMapping(value = "/loadActividadGRList", consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseData<?>> loadActividadGRList(@RequestBody FindByParamBean findByParamBean) throws Exception {
 
         List<ActividadGobResultadoBean> actividadGRAList = actividadGRAService.loadActividadGRAList(findByParamBean);
 
