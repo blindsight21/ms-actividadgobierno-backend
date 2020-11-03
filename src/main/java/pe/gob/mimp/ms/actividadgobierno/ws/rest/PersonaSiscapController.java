@@ -30,7 +30,7 @@ import pe.gob.mimp.ms.actividadgobierno.service.PersonaSiscapService;
  * @author BlindSight
  */
 @RestController
-@RequestMapping(value = "/personaSiscap")
+@RequestMapping(value = "/personasiscap")
 public class PersonaSiscapController {
 
     @Autowired
