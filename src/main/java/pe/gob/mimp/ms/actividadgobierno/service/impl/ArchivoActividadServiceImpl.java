@@ -5,6 +5,7 @@
  */
 package pe.gob.mimp.ms.actividadgobierno.service.impl;
 
+import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import pe.gob.mimp.ms.actividadgobierno.bean.ArchivoActividadBean;
 import pe.gob.mimp.ms.actividadgobierno.converter.ArchivoActividadCast;
 import pe.gob.mimp.ms.actividadgobierno.service.ArchivoActividadService;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
+import pe.gob.mimp.siscap.model.ActividadGob;
 import pe.gob.mimp.siscap.repository.archivoactividad.ArchivoActividadRepository;
 
 /**
@@ -49,6 +51,14 @@ public class ArchivoActividadServiceImpl implements ArchivoActividadService {
 
     @Override
     public List<ArchivoActividadBean> loadArchivoActividadList(FindByParamBean findByParamBean) throws Exception {
+
+        findByParamBean.getParameters().forEach((k, v) -> {
+            if ("nidActividadGob".equals(k)) {
+                String jsonString = new Gson().toJson(v);
+                ActividadGob actividadGob = new Gson().fromJson(jsonString, ActividadGob.class);
+                findByParamBean.getParameters().put(k, actividadGob);
+            }
+        });
 
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
