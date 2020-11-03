@@ -33,7 +33,7 @@ public class ActividadGRServiceImpl implements ActividadGRService {
     private ActiGobResultadoRepository actiGobResultadoRepository;
 
     @Override
-    public ActividadGobResultadoBean crearActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception {
+    public ActividadGobResultadoBean crearActividadGR(ActividadGobResultadoBean actividadGRABean) throws Exception {
 
         ActividadGobResultado actividadGobResultado = ActividadGobResultadoCast.castActividadGobResultadoBeanToActividadGobResultado(actividadGRABean);
         actiGobResultadoRepository.save(actividadGobResultado);
@@ -42,7 +42,7 @@ public class ActividadGRServiceImpl implements ActividadGRService {
     }
 
     @Override
-    public ActividadGobResultadoBean editarActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception {
+    public ActividadGobResultadoBean editarActividadGR(ActividadGobResultadoBean actividadGRABean) throws Exception {
 
         if (actividadGRABean.getNidActividadGobResultado() == null) {
             return null;
@@ -55,7 +55,7 @@ public class ActividadGRServiceImpl implements ActividadGRService {
     }
 
     @Override
-    public List<ActividadGobResultadoBean> loadActividadGRAList(FindByParamBean findByParamBean) throws Exception {
+    public List<ActividadGobResultadoBean> loadActividadGRList(FindByParamBean findByParamBean) throws Exception {
 
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());

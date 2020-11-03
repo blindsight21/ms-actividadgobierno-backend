@@ -24,7 +24,7 @@ import pe.gob.mimp.ms.actividadgobierno.service.ActividadGRService;
  * @author Omar
  */
 @RestController
-@RequestMapping(value = "/actividadgra")
+@RequestMapping(value = "/actividadgr")
 public class ActividadGRController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class ActividadGRController {
     @PostMapping(value = "/crearActividadGR", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearActividadGR(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
 
-        ActividadGobResultadoBean actividadGobResultadoBeanNuevo = actividadGRAService.crearActividadGRA(actividadGRABean);
+        ActividadGobResultadoBean actividadGobResultadoBeanNuevo = actividadGRAService.crearActividadGR(actividadGRABean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
@@ -47,7 +47,7 @@ public class ActividadGRController {
     @PostMapping(value = "/editarActividadGR", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarActividadGR(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
 
-        ActividadGobResultadoBean actividadGobResultadoBeanEditado = actividadGRAService.editarActividadGRA(actividadGRABean);
+        ActividadGobResultadoBean actividadGobResultadoBeanEditado = actividadGRAService.editarActividadGR(actividadGRABean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
@@ -74,7 +74,7 @@ public class ActividadGRController {
     @PostMapping(value = "/loadActividadGRList", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> loadActividadGRList(@RequestBody FindByParamBean findByParamBean) throws Exception {
 
-        List<ActividadGobResultadoBean> actividadGRAList = actividadGRAService.loadActividadGRAList(findByParamBean);
+        List<ActividadGobResultadoBean> actividadGRAList = actividadGRAService.loadActividadGRList(findByParamBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
