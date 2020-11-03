@@ -16,9 +16,9 @@ import pe.gob.mimp.ms.actividadgobierno.bean.ActividadGobBean;
  */
 public interface ActividadGobService {
 
-    void crearActividadGob(ActividadGobBean actividadGobBean) throws Exception;
+    ActividadGobBean crearActividadGob(ActividadGobBean actividadGobBean) throws Exception;
 
-    void editarActividadGob(ActividadGobBean actividadGobBean) throws Exception;
+    ActividadGobBean editarActividadGob(ActividadGobBean actividadGobBean) throws Exception;
 
     List<ActividadGobBean> loadActividadGobList(FindByParamBean findByParamBean) throws Exception;
 

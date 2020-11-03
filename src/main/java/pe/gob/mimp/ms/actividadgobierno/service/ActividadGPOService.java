@@ -15,9 +15,9 @@ import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
  */
 public interface ActividadGPOService {
 
-    void crearActividadGPO(ActividadGobPubliObjeBean actividadGPOBean) throws Exception;
+    ActividadGobPubliObjeBean crearActividadGPO(ActividadGobPubliObjeBean actividadGPOBean) throws Exception;
 
-    void editarActividadGPO(ActividadGobPubliObjeBean actividadGPOBean) throws Exception;
+    ActividadGobPubliObjeBean editarActividadGPO(ActividadGobPubliObjeBean actividadGPOBean) throws Exception;
 
     List<ActividadGobPubliObjeBean> loadActividadGPOList(FindByParamBean findByParamBean) throws Exception;
 

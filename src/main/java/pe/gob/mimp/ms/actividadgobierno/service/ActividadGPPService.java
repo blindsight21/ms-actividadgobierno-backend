@@ -8,6 +8,7 @@ package pe.gob.mimp.ms.actividadgobierno.service;
 import java.util.List;
 import pe.gob.mimp.ms.actividadgobierno.bean.ActividadGobPubliProcBean;
 import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
+import pe.gob.mimp.siscap.model.ActividadGobPubliProc;
 
 /**
  *
@@ -15,9 +16,9 @@ import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
  */
 public interface ActividadGPPService {
 
-    void crearActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception;
+    ActividadGobPubliProcBean crearActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception;
 
-    void editarActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception;
+    ActividadGobPubliProcBean editarActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception;
 
     List<ActividadGobPubliProcBean> loadActividadGPPList(FindByParamBean findByParamBean) throws Exception;
 

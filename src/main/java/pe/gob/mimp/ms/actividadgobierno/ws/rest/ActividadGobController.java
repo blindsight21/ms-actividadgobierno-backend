@@ -38,11 +38,12 @@ public class ActividadGobController {
     @PostMapping(value = "/crearActividadGob", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearActividadGob(@RequestBody ActividadGobBean actividadGobBean) throws Exception {
 
-        actividadGobService.crearActividadGob(actividadGobBean);
+        ActividadGobBean actividadGobBeanNuevo = actividadGobService.crearActividadGob(actividadGobBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
         response.setMsg(HttpStatus.CREATED.getReasonPhrase());
+        response.setResultado(actividadGobBeanNuevo);
 
         return ResponseEntity.ok(response);
 
@@ -51,11 +52,12 @@ public class ActividadGobController {
     @PostMapping(value = "/editarActividadGob", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarActividadGob(@RequestBody ActividadGobBean actividadGobBean) throws Exception {
 
-        actividadGobService.editarActividadGob(actividadGobBean);
+        ActividadGobBean actividadGobBeanEditado = actividadGobService.editarActividadGob(actividadGobBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
         response.setMsg(HttpStatus.OK.getReasonPhrase());
+        response.setResultado(actividadGobBeanEditado);
 
         return ResponseEntity.ok(response);
 
@@ -88,7 +90,7 @@ public class ActividadGobController {
         return ResponseEntity.ok(response);
 
     }
-    
+
     @PostMapping(value = "/getRecordCount", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> getRecordCount(@RequestBody FindByParamBean findByParamBean) throws Exception {
 
@@ -102,7 +104,7 @@ public class ActividadGobController {
         return ResponseEntity.ok(response);
 
     }
-    
+
     @GetMapping(value = "/find/{id}")
     public ResponseEntity<ResponseData<?>> find(@PathVariable("id") BigDecimal id) throws Exception {
 

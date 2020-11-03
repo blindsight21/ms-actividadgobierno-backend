@@ -15,9 +15,9 @@ import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
  */
 public interface ActividadGRService {
 
-    void crearActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception;
+    ActividadGobResultadoBean crearActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception;
 
-    void editarActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception;
+    ActividadGobResultadoBean editarActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception;
 
     List<ActividadGobResultadoBean> loadActividadGRAList(FindByParamBean findByParamBean) throws Exception;
 

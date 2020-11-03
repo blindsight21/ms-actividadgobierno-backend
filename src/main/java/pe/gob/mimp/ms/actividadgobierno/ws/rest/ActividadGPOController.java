@@ -35,11 +35,12 @@ public class ActividadGPOController {
     @PostMapping(value = "/crearActividadGPO", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearActividadGPO(@RequestBody ActividadGobPubliObjeBean actividadGPOBean) throws Exception {
 
-        actividadGPOService.crearActividadGPO(actividadGPOBean);
+        ActividadGobPubliObjeBean actividadGobPubliObjeBeanNuevo = actividadGPOService.crearActividadGPO(actividadGPOBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
         response.setMsg(HttpStatus.CREATED.getReasonPhrase());
+        response.setResultado(actividadGobPubliObjeBeanNuevo);
 
         return ResponseEntity.ok(response);
 
@@ -48,11 +49,12 @@ public class ActividadGPOController {
     @PostMapping(value = "/editarActividadGPO", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarActividadGPO(@RequestBody ActividadGobPubliObjeBean actividadGPOBean) throws Exception {
 
-        actividadGPOService.editarActividadGPO(actividadGPOBean);
+        ActividadGobPubliObjeBean actividadGobPubliObjeBeanEditado = actividadGPOService.editarActividadGPO(actividadGPOBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
         response.setMsg(HttpStatus.OK.getReasonPhrase());
+        response.setResultado(actividadGobPubliObjeBeanEditado);
 
         return ResponseEntity.ok(response);
 

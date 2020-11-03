@@ -5,6 +5,7 @@
  */
 package pe.gob.mimp.ms.actividadgobierno.service.impl;
 
+import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,9 +17,11 @@ import pe.gob.mimp.siscap.repository.actividadgobpubliobje.ActiGobPubliObjeRepos
 import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
 import pe.gob.mimp.ms.actividadgobierno.bean.ActividadGobPubliObjeBean;
 import pe.gob.mimp.ms.actividadgobierno.converter.ActividadGobCast;
+import pe.gob.mimp.ms.actividadgobierno.converter.ActividadGobPubliObjeCast;
 import pe.gob.mimp.ms.actividadgobierno.converter.PublicoObjetivoCast;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
 import pe.gob.mimp.ms.actividadgobierno.service.ActividadGPOService;
+import pe.gob.mimp.siscap.model.ActividadGob;
 
 /**
  *
@@ -32,52 +35,25 @@ public class ActividadGPOServiceImpl implements ActividadGPOService {
     private ActiGobPubliObjeRepository actiGobPubliObjeRepository;
 
     @Override
-    public void crearActividadGPO(ActividadGobPubliObjeBean actividadGobPubliObjeBean) throws Exception {
+    public ActividadGobPubliObjeBean crearActividadGPO(ActividadGobPubliObjeBean actividadGobPubliObjeBean) throws Exception {
 
-        ActividadGobPubliObje actividadGobPubliObje = new ActividadGobPubliObje();
-
-        actividadGobPubliObje.setNidActividadGobPubliObje(actividadGobPubliObjeBean.getNidActividadGobPubliObje());
-        actividadGobPubliObje.setNumContadorMarculino(actividadGobPubliObjeBean.getNumContadorMarculino());
-        actividadGobPubliObje.setNumContadorFemenino(actividadGobPubliObjeBean.getNumContadorFemenino());
-        actividadGobPubliObje.setNumContadorTotal(actividadGobPubliObjeBean.getNumContadorTotal());
-
-        actividadGobPubliObje.setFlgActivo(actividadGobPubliObjeBean.getFlgActivo());
-        actividadGobPubliObje.setNidUsuario(actividadGobPubliObjeBean.getNidUsuario());
-        actividadGobPubliObje.setTxtPc(actividadGobPubliObjeBean.getTxtPc());
-        actividadGobPubliObje.setTxtIp(actividadGobPubliObjeBean.getTxtIp());
-        actividadGobPubliObje.setFecEdicion(actividadGobPubliObjeBean.getFecEdicion());
-        
-        actividadGobPubliObje.setNidPublicoObjetivo(PublicoObjetivoCast.castPublicoObjetivoBeanToPublicoObjetivo(actividadGobPubliObjeBean.getPublicoObjetivoBean()));
-        actividadGobPubliObje.setNidActividadGob(ActividadGobCast.castActividadGobBeanToActividadGob(actividadGobPubliObjeBean.getActividadGobBean()));
-
+        ActividadGobPubliObje actividadGobPubliObje = ActividadGobPubliObjeCast.castActividadGobPubliObjeBeanToActividadGobPubliObje(actividadGobPubliObjeBean);
         actiGobPubliObjeRepository.save(actividadGobPubliObje);
 
+        return ActividadGobPubliObjeCast.castActividadGobPubliObjeToActividadGobPubliObjeBean(actividadGobPubliObje);
     }
 
     @Override
-    public void editarActividadGPO(ActividadGobPubliObjeBean actividadGobPubliObjeBean) throws Exception {
+    public ActividadGobPubliObjeBean editarActividadGPO(ActividadGobPubliObjeBean actividadGobPubliObjeBean) throws Exception {
 
         if (actividadGobPubliObjeBean.getNidActividadGobPubliObje() == null) {
-            return;
+            return null;
         }
 
-        ActividadGobPubliObje actividadGobPubliObje = new ActividadGobPubliObje();
-
-        actividadGobPubliObje.setNidActividadGobPubliObje(actividadGobPubliObjeBean.getNidActividadGobPubliObje());
-        actividadGobPubliObje.setNumContadorMarculino(actividadGobPubliObjeBean.getNumContadorMarculino());
-        actividadGobPubliObje.setNumContadorFemenino(actividadGobPubliObjeBean.getNumContadorFemenino());
-        actividadGobPubliObje.setNumContadorTotal(actividadGobPubliObjeBean.getNumContadorTotal());
-
-        actividadGobPubliObje.setFlgActivo(actividadGobPubliObjeBean.getFlgActivo());
-        actividadGobPubliObje.setNidUsuario(actividadGobPubliObjeBean.getNidUsuario());
-        actividadGobPubliObje.setTxtPc(actividadGobPubliObjeBean.getTxtPc());
-        actividadGobPubliObje.setTxtIp(actividadGobPubliObjeBean.getTxtIp());
-        actividadGobPubliObje.setFecEdicion(actividadGobPubliObjeBean.getFecEdicion());
-        actividadGobPubliObje.setNidPublicoObjetivo(PublicoObjetivoCast.castPublicoObjetivoBeanToPublicoObjetivo(actividadGobPubliObjeBean.getPublicoObjetivoBean()));
-        actividadGobPubliObje.setNidActividadGob(ActividadGobCast.castActividadGobBeanToActividadGob(actividadGobPubliObjeBean.getActividadGobBean()));
-
+        ActividadGobPubliObje actividadGobPubliObje = ActividadGobPubliObjeCast.castActividadGobPubliObjeBeanToActividadGobPubliObje(actividadGobPubliObjeBean);
         actiGobPubliObjeRepository.save(actividadGobPubliObje);
 
+        return ActividadGobPubliObjeCast.castActividadGobPubliObjeToActividadGobPubliObjeBean(actividadGobPubliObje);
     }
 
     @Override
@@ -87,27 +63,20 @@ public class ActividadGPOServiceImpl implements ActividadGPOService {
             findByParamBean.setParameters(new HashMap<>());
         }
 
+        findByParamBean.getParameters().forEach((k, v) -> {
+            if ("nidActividadGob".equals(k)) {
+                String jsonString = new Gson().toJson(v);
+                ActividadGob actividadGob = new Gson().fromJson(jsonString, ActividadGob.class);
+                findByParamBean.getParameters().put(k, actividadGob);
+            }
+        });
+
         List<ActividadGobPubliObje> actividadGobPubliObjeList = actiGobPubliObjeRepository.findByParams(findByParamBean.getParameters(), findByParamBean.getOrderBy());
 
         if (!Util.esListaVacia(actividadGobPubliObjeList)) {
 
             return actividadGobPubliObjeList.stream().map(actividadGobPubliObje -> {
-                ActividadGobPubliObjeBean actividadGobPubliObjeBean = new ActividadGobPubliObjeBean();
-
-                actividadGobPubliObjeBean.setNidActividadGobPubliObje(actividadGobPubliObje.getNidActividadGobPubliObje());
-                actividadGobPubliObjeBean.setNumContadorMarculino(actividadGobPubliObje.getNumContadorMarculino());
-                actividadGobPubliObjeBean.setNumContadorFemenino(actividadGobPubliObje.getNumContadorFemenino());
-                actividadGobPubliObjeBean.setNumContadorTotal(actividadGobPubliObje.getNumContadorTotal());
-
-                actividadGobPubliObjeBean.setFlgActivo(actividadGobPubliObje.getFlgActivo());
-                actividadGobPubliObjeBean.setNidUsuario(actividadGobPubliObje.getNidUsuario());
-                actividadGobPubliObjeBean.setTxtPc(actividadGobPubliObje.getTxtPc());
-                actividadGobPubliObjeBean.setTxtIp(actividadGobPubliObje.getTxtIp());
-                actividadGobPubliObjeBean.setFecEdicion(actividadGobPubliObje.getFecEdicion());
-
-                actividadGobPubliObjeBean.setPublicoObjetivoBean(PublicoObjetivoCast.castPublicoObjetivoToPublicoObjetivoBean(actividadGobPubliObje.getNidPublicoObjetivo()));
-                actividadGobPubliObjeBean.setActividadGobBean(ActividadGobCast.castActividadGobToActividadGobBean(actividadGobPubliObje.getNidActividadGob()));
-
+                ActividadGobPubliObjeBean actividadGobPubliObjeBean = ActividadGobPubliObjeCast.castActividadGobPubliObjeToActividadGobPubliObjeBean(actividadGobPubliObje);
                 return actividadGobPubliObjeBean;
             }).collect(Collectors.toList());
         }

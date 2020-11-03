@@ -33,11 +33,12 @@ public class ActividadGEController {
     @PostMapping(value = "/crearActividadGE", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearActividadGE(@RequestBody ActividadGobEActGobBean actividadGEABean) throws Exception {
 
-        actividadGEService.crearActividadGE(actividadGEABean);
+        ActividadGobEActGobBean actividadGobEActGobBeanNuevo = actividadGEService.crearActividadGE(actividadGEABean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
         response.setMsg(HttpStatus.CREATED.getReasonPhrase());
+        response.setResultado(actividadGobEActGobBeanNuevo);
 
         return ResponseEntity.ok(response);
 
@@ -46,12 +47,13 @@ public class ActividadGEController {
     @PostMapping(value = "/editarActividadGE", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarActividadGE(@RequestBody ActividadGobEActGobBean actividadGEABean) throws Exception {
 
-        actividadGEService.editarActividadGE(actividadGEABean);
+        ActividadGobEActGobBean actividadGobEActGobBeanEditado = actividadGEService.editarActividadGE(actividadGEABean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
         response.setMsg(HttpStatus.OK.getReasonPhrase());
-
+        response.setResultado(actividadGobEActGobBeanEditado);
+        
         return ResponseEntity.ok(response);
 
     }

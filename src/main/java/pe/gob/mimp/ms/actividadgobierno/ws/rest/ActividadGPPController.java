@@ -33,12 +33,13 @@ public class ActividadGPPController {
     @PostMapping(value = "/crearActividadGPP", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearActividadGPP(@RequestBody ActividadGobPubliProcBean actividadGPPBean) throws Exception {
 
-        actividadGPPService.crearActividadGPP(actividadGPPBean);
+        ActividadGobPubliProcBean actividadGobPubliProcBeanNuevo = actividadGPPService.crearActividadGPP(actividadGPPBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
         response.setMsg(HttpStatus.CREATED.getReasonPhrase());
-
+        response.setResultado(actividadGobPubliProcBeanNuevo);
+        
         return ResponseEntity.ok(response);
 
     }
@@ -46,12 +47,13 @@ public class ActividadGPPController {
     @PostMapping(value = "/editarActividadGPP", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarActividadGPP(@RequestBody ActividadGobPubliProcBean actividadGPPBean) throws Exception {
 
-        actividadGPPService.editarActividadGPP(actividadGPPBean);
+         ActividadGobPubliProcBean actividadGobPubliProcBeanEditado = actividadGPPService.editarActividadGPP(actividadGPPBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
         response.setMsg(HttpStatus.OK.getReasonPhrase());
-
+        response.setResultado(actividadGobPubliProcBeanEditado);
+        
         return ResponseEntity.ok(response);
 
     }

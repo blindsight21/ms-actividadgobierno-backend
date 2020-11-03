@@ -21,11 +21,6 @@ import pe.gob.mimp.siscap.repository.actividadGob.ActiGobRepository;
 import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
 import pe.gob.mimp.ms.actividadgobierno.bean.ActividadGobBean;
 import pe.gob.mimp.ms.actividadgobierno.converter.ActividadGobCast;
-import pe.gob.mimp.ms.actividadgobierno.converter.FuncionTransferidaCast;
-import pe.gob.mimp.ms.actividadgobierno.converter.GobiernoCast;
-import pe.gob.mimp.ms.actividadgobierno.converter.ModalidadActividadCast;
-import pe.gob.mimp.ms.actividadgobierno.converter.TipoModalidadCast;
-import pe.gob.mimp.ms.actividadgobierno.converter.TipoObjetivoCast;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
 import pe.gob.mimp.ms.actividadgobierno.service.ActividadGobService;
 import pe.gob.mimp.ms.actividadgobierno.util.FormatoFechaConstante;
@@ -43,102 +38,25 @@ public class ActividadGobServiceImpl implements ActividadGobService {
     private ActiGobRepository actividadGobiernoRepository;
 
     @Override
-    public void crearActividadGob(ActividadGobBean actividadGobiernoBean) throws Exception {
+    public ActividadGobBean crearActividadGob(ActividadGobBean actividadGobiernoBean) throws Exception {
 
-        ActividadGob actividadGobierno = new ActividadGob();
-        actividadGobierno.setNidActividadGob(actividadGobiernoBean.getNidActividadGob());
-        actividadGobierno.setTxtObjetivo(actividadGobiernoBean.getTxtObjetivo());
-        actividadGobierno.setTxtTema(actividadGobiernoBean.getTxtTema());
-        actividadGobierno.setFecInicio(actividadGobiernoBean.getFecInicio());
-        actividadGobierno.setFecFin(actividadGobiernoBean.getFecFin());
-        actividadGobierno.setFecCreacion(actividadGobiernoBean.getFecCreacion());
-        actividadGobierno.setNumAnio(actividadGobiernoBean.getNumAnio());
-        actividadGobierno.setNumTrimestre(actividadGobiernoBean.getNumTrimestre());
-        actividadGobierno.setTxtObservacionEliminado(actividadGobiernoBean.getTxtObservacionEliminado());
-
-        actividadGobierno.setNidUsuario(actividadGobiernoBean.getNidUsuario());
-        actividadGobierno.setTxtPc(actividadGobiernoBean.getTxtPc());
-        actividadGobierno.setTxtIp(actividadGobiernoBean.getTxtIp());
-        actividadGobierno.setFecEdicion(actividadGobiernoBean.getFecEdicion());
-        actividadGobierno.setFlgActivo(actividadGobiernoBean.getFlgActivo());
-
-        actividadGobierno.setNidArea(actividadGobiernoBean.getNidArea());
-        actividadGobierno.setNidDepartamento(actividadGobiernoBean.getNidDepartamento());
-        actividadGobierno.setTxtResponsableApepat(actividadGobiernoBean.getTxtResponsableApepat());
-        actividadGobierno.setTxtResponsableApemat(actividadGobiernoBean.getTxtResponsableApemat());
-        actividadGobierno.setTxtResponsableNombre(actividadGobiernoBean.getTxtResponsableNombre());
-        actividadGobierno.setTxtResponsableTelef(actividadGobiernoBean.getTxtResponsableTelef());
-        actividadGobierno.setTxtResponsableCorreo(actividadGobiernoBean.getTxtResponsableCorreo());
-        actividadGobierno.setNumContadorMasculino(actividadGobiernoBean.getNumContadorMasculino());
-        actividadGobierno.setNumContadorFemenino(actividadGobiernoBean.getNumContadorFemenino());
-        actividadGobierno.setNumContadorTotal(actividadGobiernoBean.getNumContadorTotal());
-        actividadGobierno.setTxtJustificacionReprogramado(actividadGobiernoBean.getTxtJustificacionReprogramado());
-        actividadGobierno.setTxtJustificacionAnulado(actividadGobiernoBean.getTxtJustificacionAnulado());
-
-        actividadGobierno.setNidTipoObjetivo(TipoObjetivoCast.castTipoObjetivoBeanToTipoObjetivo(actividadGobiernoBean.getTipoObjetivoBean()));
-        actividadGobierno.setNidTipoModalidad(TipoModalidadCast.castTipoModalidadBeanToTipoModalidad(actividadGobiernoBean.getTipoModalidadBean()));
-        actividadGobierno.setNidModalidadActividad(ModalidadActividadCast.castModalidadActividadBeanToModalidadActividad(actividadGobiernoBean.getModalidadActividadBean()));
-        actividadGobierno.setNidGobierno(GobiernoCast.castGobiernoBeanToGobierno(actividadGobiernoBean.getGobiernoBean()));
-        actividadGobierno.setNidFuncionTransferida(FuncionTransferidaCast.castFuncionTransferidaBeanToFuncionTransferida(actividadGobiernoBean.getFuncionTransferidaBean()));
-
-        actividadGobierno.setNidTipoFuncion(actividadGobiernoBean.getNidTipoFuncion());
-        actividadGobierno.setNidTipoGobierno(actividadGobiernoBean.getNidTipoGobierno());
-        actividadGobierno.setNidEstadoActividad(actividadGobierno.getNidEstadoActividad());
-
+        ActividadGob actividadGobierno = ActividadGobCast.castActividadGobBeanToActividadGob(actividadGobiernoBean);
         actividadGobiernoRepository.save(actividadGobierno);
 
+        return ActividadGobCast.castActividadGobToActividadGobBean(actividadGobierno);
     }
 
     @Override
-    public void editarActividadGob(ActividadGobBean actividadGobiernoBean) {
+    public ActividadGobBean editarActividadGob(ActividadGobBean actividadGobiernoBean) {
 
         if (actividadGobiernoBean.getNidActividadGob() == null) {
-            return;
+            return null;
         }
 
-        ActividadGob actividadGobierno = new ActividadGob();
-
-        actividadGobierno.setNidActividadGob(actividadGobiernoBean.getNidActividadGob());
-        actividadGobierno.setTxtObjetivo(actividadGobiernoBean.getTxtObjetivo());
-        actividadGobierno.setTxtTema(actividadGobiernoBean.getTxtTema());
-        actividadGobierno.setFecInicio(actividadGobiernoBean.getFecInicio());
-        actividadGobierno.setFecFin(actividadGobiernoBean.getFecFin());
-        actividadGobierno.setFecCreacion(actividadGobiernoBean.getFecCreacion());
-        actividadGobierno.setNumAnio(actividadGobiernoBean.getNumAnio());
-        actividadGobierno.setNumTrimestre(actividadGobiernoBean.getNumTrimestre());
-        actividadGobierno.setTxtObservacionEliminado(actividadGobiernoBean.getTxtObservacionEliminado());
-
-        actividadGobierno.setNidUsuario(actividadGobiernoBean.getNidUsuario());
-        actividadGobierno.setTxtPc(actividadGobiernoBean.getTxtPc());
-        actividadGobierno.setTxtIp(actividadGobiernoBean.getTxtIp());
-        actividadGobierno.setFecEdicion(actividadGobiernoBean.getFecEdicion());
-        actividadGobierno.setFlgActivo(actividadGobiernoBean.getFlgActivo());
-
-        actividadGobierno.setNidArea(actividadGobiernoBean.getNidArea());
-        actividadGobierno.setNidDepartamento(actividadGobiernoBean.getNidDepartamento());
-        actividadGobierno.setTxtResponsableApepat(actividadGobiernoBean.getTxtResponsableApepat());
-        actividadGobierno.setTxtResponsableApemat(actividadGobiernoBean.getTxtResponsableApemat());
-        actividadGobierno.setTxtResponsableNombre(actividadGobiernoBean.getTxtResponsableNombre());
-        actividadGobierno.setTxtResponsableTelef(actividadGobiernoBean.getTxtResponsableTelef());
-        actividadGobierno.setTxtResponsableCorreo(actividadGobiernoBean.getTxtResponsableCorreo());
-        actividadGobierno.setNumContadorMasculino(actividadGobiernoBean.getNumContadorMasculino());
-        actividadGobierno.setNumContadorFemenino(actividadGobiernoBean.getNumContadorFemenino());
-        actividadGobierno.setNumContadorTotal(actividadGobiernoBean.getNumContadorTotal());
-        actividadGobierno.setTxtJustificacionReprogramado(actividadGobiernoBean.getTxtJustificacionReprogramado());
-        actividadGobierno.setTxtJustificacionAnulado(actividadGobiernoBean.getTxtJustificacionAnulado());
-
-        actividadGobierno.setNidTipoObjetivo(TipoObjetivoCast.castTipoObjetivoBeanToTipoObjetivo(actividadGobiernoBean.getTipoObjetivoBean()));
-        actividadGobierno.setNidTipoModalidad(TipoModalidadCast.castTipoModalidadBeanToTipoModalidad(actividadGobiernoBean.getTipoModalidadBean()));
-        actividadGobierno.setNidModalidadActividad(ModalidadActividadCast.castModalidadActividadBeanToModalidadActividad(actividadGobiernoBean.getModalidadActividadBean()));
-        actividadGobierno.setNidGobierno(GobiernoCast.castGobiernoBeanToGobierno(actividadGobiernoBean.getGobiernoBean()));
-        actividadGobierno.setNidFuncionTransferida(FuncionTransferidaCast.castFuncionTransferidaBeanToFuncionTransferida(actividadGobiernoBean.getFuncionTransferidaBean()));
-
-        actividadGobierno.setNidTipoFuncion(actividadGobiernoBean.getNidTipoFuncion());
-        actividadGobierno.setNidTipoGobierno(actividadGobiernoBean.getNidTipoGobierno());
-        actividadGobierno.setNidEstadoActividad(actividadGobierno.getNidEstadoActividad());
-
+        ActividadGob actividadGobierno = ActividadGobCast.castActividadGobBeanToActividadGob(actividadGobiernoBean);
         actividadGobiernoRepository.save(actividadGobierno);
 
+        return ActividadGobCast.castActividadGobToActividadGobBean(actividadGobierno);
     }
 
     @Override

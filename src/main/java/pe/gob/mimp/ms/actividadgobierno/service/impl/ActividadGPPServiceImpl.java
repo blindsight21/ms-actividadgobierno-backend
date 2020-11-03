@@ -5,6 +5,7 @@
  */
 package pe.gob.mimp.ms.actividadgobierno.service.impl;
 
+import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,11 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import pe.gob.mimp.siscap.repository.actividadgobpubliproc.ActiGobPubliProcRepository;
 import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
 import pe.gob.mimp.ms.actividadgobierno.bean.ActividadGobPubliProcBean;
-import pe.gob.mimp.ms.actividadgobierno.converter.ActividadGobCast;
 import pe.gob.mimp.ms.actividadgobierno.converter.ActividadGobPubliProcCast;
-import pe.gob.mimp.ms.actividadgobierno.converter.GobiernoCast;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
 import pe.gob.mimp.ms.actividadgobierno.service.ActividadGPPService;
+import pe.gob.mimp.siscap.model.ActividadGob;
 import pe.gob.mimp.siscap.model.ActividadGobPubliProc;
 
 /**
@@ -33,25 +33,27 @@ public class ActividadGPPServiceImpl implements ActividadGPPService {
     private ActiGobPubliProcRepository actiGobPubliProcRepository;
 
     @Override
-    public void crearActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception {
+    public ActividadGobPubliProcBean crearActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception {
 
         ActividadGobPubliProc actividadGobPubliProc = ActividadGobPubliProcCast.castActividadGobPubliProcBeanToActividadGobPubliProc(actividadGPPBean);
 
         actiGobPubliProcRepository.save(actividadGobPubliProc);
 
+        return ActividadGobPubliProcCast.castActividadGobPubliProcToActividadGobPubliProcBean(actividadGobPubliProc);
     }
 
     @Override
-    public void editarActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception {
+    public ActividadGobPubliProcBean editarActividadGPP(ActividadGobPubliProcBean actividadGPPBean) throws Exception {
 
         if (actividadGPPBean.getNidActividadGobProcGob() == null) {
-            return;
+            return null;
         }
 
         ActividadGobPubliProc actividadGobPubliProc = ActividadGobPubliProcCast.castActividadGobPubliProcBeanToActividadGobPubliProc(actividadGPPBean);
 
         actiGobPubliProcRepository.save(actividadGobPubliProc);
 
+        return ActividadGobPubliProcCast.castActividadGobPubliProcToActividadGobPubliProcBean(actividadGobPubliProc);
     }
 
     @Override
@@ -60,6 +62,14 @@ public class ActividadGPPServiceImpl implements ActividadGPPService {
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
         }
+
+        findByParamBean.getParameters().forEach((k, v) -> {
+            if ("nidActividadGob".equals(k)) {
+                String jsonString = new Gson().toJson(v);
+                ActividadGob actividadGob = new Gson().fromJson(jsonString, ActividadGob.class);
+                findByParamBean.getParameters().put(k, actividadGob);
+            }
+        });
 
         List<ActividadGobPubliProc> actividadGobPubliProcList = actiGobPubliProcRepository.findByParams(findByParamBean.getParameters(), findByParamBean.getOrderBy());
 

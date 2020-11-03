@@ -5,6 +5,7 @@
  */
 package pe.gob.mimp.ms.actividadgobierno.service.impl;
 
+import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,7 @@ import pe.gob.mimp.ms.actividadgobierno.converter.ActividadGobResultadoCast;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
 import pe.gob.mimp.siscap.model.ActividadGobResultado;
 import pe.gob.mimp.ms.actividadgobierno.service.ActividadGRService;
+import pe.gob.mimp.siscap.model.ActividadGob;
 
 /**
  *
@@ -31,22 +33,25 @@ public class ActividadGRServiceImpl implements ActividadGRService {
     private ActiGobResultadoRepository actiGobResultadoRepository;
 
     @Override
-    public void crearActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception {
+    public ActividadGobResultadoBean crearActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception {
 
         ActividadGobResultado actividadGobResultado = ActividadGobResultadoCast.castActividadGobResultadoBeanToActividadGobResultado(actividadGRABean);
         actiGobResultadoRepository.save(actividadGobResultado);
+
+        return ActividadGobResultadoCast.castActividadGobResultadoToActividadGobResultadoBean(actividadGobResultado);
     }
 
     @Override
-    public void editarActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception {
+    public ActividadGobResultadoBean editarActividadGRA(ActividadGobResultadoBean actividadGRABean) throws Exception {
 
         if (actividadGRABean.getNidActividadGobResultado() == null) {
-            return;
+            return null;
         }
 
         ActividadGobResultado actividadGobResultado = ActividadGobResultadoCast.castActividadGobResultadoBeanToActividadGobResultado(actividadGRABean);
-         actiGobResultadoRepository.save(actividadGobResultado);
+        actiGobResultadoRepository.save(actividadGobResultado);
 
+        return ActividadGobResultadoCast.castActividadGobResultadoToActividadGobResultadoBean(actividadGobResultado);
     }
 
     @Override
@@ -55,6 +60,14 @@ public class ActividadGRServiceImpl implements ActividadGRService {
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
         }
+
+        findByParamBean.getParameters().forEach((k, v) -> {
+            if ("nidActividadGob".equals(k)) {
+                String jsonString = new Gson().toJson(v);
+                ActividadGob actividadGob = new Gson().fromJson(jsonString, ActividadGob.class);
+                findByParamBean.getParameters().put(k, actividadGob);
+            }
+        });
 
         List<ActividadGobResultado> actividadGobResultadoList = actiGobResultadoRepository.findByParams(findByParamBean.getParameters(), findByParamBean.getOrderBy());
 

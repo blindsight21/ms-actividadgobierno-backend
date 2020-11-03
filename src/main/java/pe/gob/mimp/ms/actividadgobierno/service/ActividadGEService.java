@@ -8,6 +8,7 @@ package pe.gob.mimp.ms.actividadgobierno.service;
 import java.util.List;
 import pe.gob.mimp.ms.actividadgobierno.bean.ActividadGobEActGobBean;
 import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
+import pe.gob.mimp.siscap.model.ActividadGobEActGob;
 
 /**
  *
@@ -15,9 +16,9 @@ import pe.gob.mimp.ms.actividadgobierno.bean.FindByParamBean;
  */
 public interface ActividadGEService {
 
-    void crearActividadGE(ActividadGobEActGobBean actividadGobiernoBean) throws Exception;
+    ActividadGobEActGobBean crearActividadGE(ActividadGobEActGobBean actividadGobiernoBean) throws Exception;
 
-    void editarActividadGE(ActividadGobEActGobBean actividadGobiernoBean) throws Exception;
+    ActividadGobEActGobBean editarActividadGE(ActividadGobEActGobBean actividadGobiernoBean) throws Exception;
 
     List<ActividadGobEActGobBean> loadActividadGEList(FindByParamBean findByParamBean) throws Exception;
 

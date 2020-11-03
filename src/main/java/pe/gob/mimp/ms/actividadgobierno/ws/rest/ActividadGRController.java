@@ -33,11 +33,12 @@ public class ActividadGRController {
     @PostMapping(value = "/crearActividadGRA", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearActividadGRA(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
 
-        actividadGRAService.crearActividadGRA(actividadGRABean);
+        ActividadGobResultadoBean actividadGobResultadoBeanNuevo = actividadGRAService.crearActividadGRA(actividadGRABean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
         response.setMsg(HttpStatus.CREATED.getReasonPhrase());
+        response.setResultado(actividadGobResultadoBeanNuevo);
 
         return ResponseEntity.ok(response);
 
@@ -46,11 +47,12 @@ public class ActividadGRController {
     @PostMapping(value = "/editarActividadGRA", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarActividadGRA(@RequestBody ActividadGobResultadoBean actividadGRABean) throws Exception {
 
-        actividadGRAService.editarActividadGRA(actividadGRABean);
+        ActividadGobResultadoBean actividadGobResultadoBeanEditado = actividadGRAService.editarActividadGRA(actividadGRABean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
         response.setMsg(HttpStatus.OK.getReasonPhrase());
+        response.setResultado(actividadGobResultadoBeanEditado);
 
         return ResponseEntity.ok(response);
 
