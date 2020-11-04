@@ -5,6 +5,7 @@
  */
 package pe.gob.mimp.ms.actividadgobierno.service.impl;
 
+import com.google.gson.Gson;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +20,8 @@ import pe.gob.mimp.ms.actividadgobierno.bean.NivelEvaluacionBean;
 import pe.gob.mimp.ms.actividadgobierno.converter.NivelEvaluacionCast;
 import pe.gob.mimp.ms.actividadgobierno.util.Util;
 import pe.gob.mimp.ms.actividadgobierno.service.NivelEvaluacionService;
+import pe.gob.mimp.siscap.model.ActividadGob;
+import pe.gob.mimp.siscap.model.TipoEvaluacion;
 import pe.gob.mimp.siscap.repository.nivelevaluacion.NivelEvalRepository;
 
 /**
@@ -60,6 +63,14 @@ public class NivelEvauacionServiceImpl implements NivelEvaluacionService {
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
         }
+        
+        findByParamBean.getParameters().forEach((k, v) -> {
+            if ("nidTipoEvaluacion".equals(k)) {
+                String jsonString = new Gson().toJson(v);
+                TipoEvaluacion tipoEvaluacion = new Gson().fromJson(jsonString, TipoEvaluacion.class);
+                findByParamBean.getParameters().put(k, tipoEvaluacion);
+            }
+        });
 
         List<NivelEvaluacion> nivelEvaluacionList = nivelEvaluacionRepository.findByParams(findByParamBean.getParameters(), findByParamBean.getOrderBy());
 
