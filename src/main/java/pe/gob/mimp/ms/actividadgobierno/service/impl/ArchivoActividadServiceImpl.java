@@ -81,6 +81,14 @@ public class ArchivoActividadServiceImpl implements ArchivoActividadService {
     @Override
     public Integer getRecordCount(FindByParamBean findByParamBean) throws Exception {
 
+        findByParamBean.getParameters().forEach((k, v) -> {
+            if ("nidActividadGob".equals(k)) {
+                String jsonString = new Gson().toJson(v);
+                ActividadGob actividadGob = new Gson().fromJson(jsonString, ActividadGob.class);
+                findByParamBean.getParameters().put(k, actividadGob);
+            }
+        });
+        
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
         }
