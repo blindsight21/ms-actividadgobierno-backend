@@ -47,6 +47,7 @@ public class ActividadGobResultadoCast {
         ActividadGobResultado actividadGobResultado = new ActividadGobResultado();
 
         actividadGobResultado.setNidActividadGobResultado(actividadGobResultadoBean.getNidActividadGobResultado());
+        actividadGobResultado.setTxtActividadGobResultado(actividadGobResultadoBean.getTxtActividadGobResultado());
         actividadGobResultado.setFlgActivo(actividadGobResultadoBean.getFlgActivo());
         actividadGobResultado.setNidUsuario(actividadGobResultadoBean.getNidUsuario());
         actividadGobResultado.setTxtPc(actividadGobResultadoBean.getTxtPc());
