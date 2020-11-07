@@ -33,19 +33,28 @@ public class ArchivoActividadServiceImpl implements ArchivoActividadService {
     private ArchivoActividadRepository archivoActividadRepository;
 
     @Override
-    public void crearArchivoActividad(ArchivoActividadBean archivoActividadBean) throws Exception {
-        archivoActividadRepository.save(ArchivoActividadCast.castArchivoActividadBeanToArchivoActividad(archivoActividadBean));
+    public ArchivoActividadBean crearArchivoActividad(ArchivoActividadBean archivoActividadBean) throws Exception {
+
+        ArchivoActividad archivoActividad = ArchivoActividadCast.castArchivoActividadBeanToArchivoActividad(archivoActividadBean);
+
+        archivoActividadRepository.save(archivoActividad);
+
+        return ArchivoActividadCast.castArchivoActividadToArchivoActividadBean(archivoActividad);
 
     }
 
     @Override
-    public void editarArchivoActividad(ArchivoActividadBean archivoActividadBean) {
+    public ArchivoActividadBean editarArchivoActividad(ArchivoActividadBean archivoActividadBean) {
 
         if (archivoActividadBean.getNidArchivoActividad() == null) {
-            return;
+            return null;
         }
 
-        archivoActividadRepository.save(ArchivoActividadCast.castArchivoActividadBeanToArchivoActividad(archivoActividadBean));
+        ArchivoActividad archivoActividad = ArchivoActividadCast.castArchivoActividadBeanToArchivoActividad(archivoActividadBean);
+
+        archivoActividadRepository.save(archivoActividad);
+
+        return ArchivoActividadCast.castArchivoActividadToArchivoActividadBean(archivoActividad);
 
     }
 
@@ -88,7 +97,7 @@ public class ArchivoActividadServiceImpl implements ArchivoActividadService {
                 findByParamBean.getParameters().put(k, actividadGob);
             }
         });
-        
+
         if (findByParamBean.getParameters() == null) {
             findByParamBean.setParameters(new HashMap<>());
         }

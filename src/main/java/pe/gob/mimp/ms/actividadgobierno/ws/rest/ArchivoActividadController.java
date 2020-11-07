@@ -35,11 +35,12 @@ public class ArchivoActividadController {
     @PostMapping(value = "/crearArchivoActividad", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearArchivoActividad(@RequestBody ArchivoActividadBean archivoActividadBean) throws Exception {
 
-        archivoActividadService.crearArchivoActividad(archivoActividadBean);
+        ArchivoActividadBean archivoActividadBeanNuevo = archivoActividadService.crearArchivoActividad(archivoActividadBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
         response.setMsg(HttpStatus.CREATED.getReasonPhrase());
+        response.setResultado(archivoActividadBeanNuevo);
 
         return ResponseEntity.ok(response);
 
@@ -48,11 +49,12 @@ public class ArchivoActividadController {
     @PostMapping(value = "/editarArchivoActividad", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarArchivoActividad(@RequestBody ArchivoActividadBean archivoActividadBean) throws Exception {
 
-        archivoActividadService.editarArchivoActividad(archivoActividadBean);
+        ArchivoActividadBean archivoActividadBeanEditado = archivoActividadService.editarArchivoActividad(archivoActividadBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
         response.setMsg(HttpStatus.OK.getReasonPhrase());
+        response.setResultado(archivoActividadBeanEditado);
 
         return ResponseEntity.ok(response);
 

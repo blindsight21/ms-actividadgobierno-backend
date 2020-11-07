@@ -15,9 +15,9 @@ import pe.gob.mimp.ms.actividadgobierno.bean.ArchivoActividadBean;
  */
 public interface ArchivoActividadService {
 
-    void crearArchivoActividad(ArchivoActividadBean archivoActividadBean) throws Exception;
+    ArchivoActividadBean crearArchivoActividad(ArchivoActividadBean archivoActividadBean) throws Exception;
 
-    void editarArchivoActividad(ArchivoActividadBean archivoActividadBean) throws Exception;
+    ArchivoActividadBean editarArchivoActividad(ArchivoActividadBean archivoActividadBean) throws Exception;
 
     List<ArchivoActividadBean> loadArchivoActividadList(FindByParamBean findByParamBean) throws Exception;
 
