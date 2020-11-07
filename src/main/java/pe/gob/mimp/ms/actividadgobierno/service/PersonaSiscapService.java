@@ -17,9 +17,9 @@ import pe.gob.mimp.ms.actividadgobierno.bean.PersonaSiscapBean;
  */
 public interface PersonaSiscapService {
 
-    void crearPersonaSiscap(PersonaSiscapBean personaSiscapBean) throws Exception;
+    PersonaSiscapBean crearPersonaSiscap(PersonaSiscapBean personaSiscapBean) throws Exception;
 
-    void editarPersonaSiscap(PersonaSiscapBean personaSiscapBean) throws Exception;
+    PersonaSiscapBean editarPersonaSiscap(PersonaSiscapBean personaSiscapBean) throws Exception;
 
     List<PersonaSiscapBean> loadPersonaSiscapList(FindByParamBean findByParamBean) throws Exception;
 

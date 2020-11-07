@@ -39,11 +39,12 @@ public class PersonaSiscapController {
     @PostMapping(value = "/crearPersonaSiscap", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> crearPersonaSiscap(@RequestBody PersonaSiscapBean personaSiscapBean) throws Exception {
 
-        personaSiscapService.crearPersonaSiscap(personaSiscapBean);
+        PersonaSiscapBean personaSiscapBeanNuevo = personaSiscapService.crearPersonaSiscap(personaSiscapBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.CREATED.value());
         response.setMsg(HttpStatus.CREATED.getReasonPhrase());
+        response.setResultado(personaSiscapBeanNuevo);
 
         return ResponseEntity.ok(response);
 
@@ -52,11 +53,12 @@ public class PersonaSiscapController {
     @PostMapping(value = "/editarPersonaSiscap", consumes = APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseData<?>> editarPersonaSiscap(@RequestBody PersonaSiscapBean personaSiscapBean) throws Exception {
 
-        personaSiscapService.editarPersonaSiscap(personaSiscapBean);
+        PersonaSiscapBean personaSiscapBeanEditado = personaSiscapService.editarPersonaSiscap(personaSiscapBean);
 
         ResponseData<Object> response = new ResponseData<>();
         response.setCod(HttpStatus.OK.value());
         response.setMsg(HttpStatus.OK.getReasonPhrase());
+        response.setResultado(personaSiscapBeanEditado);
 
         return ResponseEntity.ok(response);
 

@@ -34,25 +34,28 @@ public class PersonaSiscapServiceImpl implements PersonaSiscapService {
     private PersoSiscapRepository personaSiscapRepository;
 
     @Override
-    public void crearPersonaSiscap(PersonaSiscapBean personaSiscapBean) throws Exception {
+    public PersonaSiscapBean crearPersonaSiscap(PersonaSiscapBean personaSiscapBean) throws Exception {
 
         PersonaSiscap personaSiscap = PersonaSiscapCast.castPersonaSiscapBeanToPersonaSiscap(personaSiscapBean);
 
         personaSiscapRepository.save(personaSiscap);
+        
+        return PersonaSiscapCast.castPersonaSiscapToPersonaSiscapBean(personaSiscap);
 
     }
 
     @Override
-    public void editarPersonaSiscap(PersonaSiscapBean personaSiscapBean) {
+    public PersonaSiscapBean editarPersonaSiscap(PersonaSiscapBean personaSiscapBean) {
 
         if (personaSiscapBean.getNidPersonaSiscap() == null) {
-            return;
+            return null;
         }
 
         PersonaSiscap personaSiscap = PersonaSiscapCast.castPersonaSiscapBeanToPersonaSiscap(personaSiscapBean);
 
         personaSiscapRepository.save(personaSiscap);
 
+        return PersonaSiscapCast.castPersonaSiscapToPersonaSiscapBean(personaSiscap);
     }
 
     @Override
